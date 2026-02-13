@@ -391,56 +391,39 @@
             bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 280px;
-            height: 220px;
-            background: linear-gradient(135deg, #e8a5c0 0%, #f5c9d8 50%, #e8a5c0 100%);
-            clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
-            border-radius: 0 0 15px 15px;
+            width: 320px;
+            height: 280px;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c2c 50%, #2d5016 100%);
+            clip-path: polygon(25% 0%, 75% 0%, 95% 100%, 5% 100%);
+            border-radius: 0 0 20px 20px;
         }
 
-        .bouquet-ribbon {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 250px;
-            height: 35px;
-            background: linear-gradient(135deg, #d8a5e8 0%, #c9b5f5 100%);
-            border-radius: 5px;
-        }
-
-        .bouquet-ribbon::before,
-        .bouquet-ribbon::after {
+        /* Paper wrapping texture */
+        .bouquet-base::before {
             content: '';
             position: absolute;
-            top: 100%;
-            width: 25px;
-            height: 50px;
-            background: linear-gradient(135deg, #d8a5e8 0%, #c9b5f5 100%);
-        }
-
-        .bouquet-ribbon::before {
-            left: 25px;
-            transform: skewX(-15deg);
-        }
-
-        .bouquet-ribbon::after {
-            right: 25px;
-            transform: skewX(15deg);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.1) 51%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.1) 51%, transparent 52%);
+            background-size: 20px 20px;
         }
 
         /* Flowers in Bouquet - ROSES */
         .flower {
             position: absolute;
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
         }
 
         .flower-bloom {
             position: relative;
             width: 100%;
             height: 100%;
-            animation: bloom 2s ease forwards;
+            animation: bloom 2.5s ease forwards;
         }
 
         @keyframes bloom {
@@ -454,135 +437,54 @@
             }
         }
 
-        /* Rose petals - layered for depth */
+        /* Rose petals - layered for depth with 3D effect */
         .flower-petal {
             position: absolute;
-            width: 45px;
-            height: 60px;
+            width: 50px;
+            height: 65px;
             border-radius: 50% 50% 50% 0;
             top: 50%;
             left: 50%;
             transform-origin: bottom left;
-            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 
+                inset -8px -8px 15px rgba(0, 0, 0, 0.2),
+                inset 5px 5px 10px rgba(255, 255, 255, 0.3),
+                0 3px 8px rgba(0, 0, 0, 0.3);
         }
 
         /* Inner rose petals (smaller, darker) */
         .flower-petal.inner {
-            width: 30px;
-            height: 40px;
-            opacity: 0.9;
-            filter: brightness(0.85);
+            width: 35px;
+            height: 45px;
+            opacity: 0.95;
+            filter: brightness(0.8);
+            box-shadow: 
+                inset -5px -5px 10px rgba(0, 0, 0, 0.3),
+                inset 3px 3px 6px rgba(255, 255, 255, 0.2);
         }
 
         /* Position roses in bigger bouquet arrangement */
-        .flower:nth-child(1) {
-            top: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 10;
-        }
-
-        .flower:nth-child(2) {
-            top: 80px;
-            left: 25%;
-        }
-
-        .flower:nth-child(3) {
-            top: 80px;
-            right: 25%;
-        }
-
-        .flower:nth-child(4) {
-            top: 130px;
-            left: 15%;
-        }
-
-        .flower:nth-child(5) {
-            top: 130px;
-            right: 15%;
-        }
-
-        .flower:nth-child(6) {
-            top: 110px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .flower:nth-child(7) {
-            top: 180px;
-            left: 30%;
-        }
-
-        .flower:nth-child(8) {
-            top: 180px;
-            right: 30%;
-        }
-
-        .flower:nth-child(9) {
-            top: 150px;
-            left: 40%;
-        }
-
-        .flower:nth-child(10) {
-            top: 150px;
-            right: 40%;
-        }
-
-        .flower:nth-child(11) {
-            top: 100px;
-            left: 35%;
-        }
-
-        .flower:nth-child(12) {
-            top: 100px;
-            right: 35%;
-        }
-
-        .flower:nth-child(13) {
-            top: 220px;
-            left: 20%;
-        }
-
-        .flower:nth-child(14) {
-            top: 220px;
-            right: 20%;
-        }
-
-        .flower:nth-child(15) {
-            top: 200px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .flower:nth-child(16) {
-            top: 240px;
-            left: 35%;
-        }
-
-        .flower:nth-child(17) {
-            top: 240px;
-            right: 35%;
-        }
-
-        .flower:nth-child(18) {
-            top: 70px;
-            left: 45%;
-        }
-
-        .flower:nth-child(19) {
-            top: 70px;
-            right: 45%;
-        }
-
-        .flower:nth-child(20) {
-            top: 120px;
-            left: 22%;
-        }
-
-        .flower:nth-child(21) {
-            top: 120px;
-            right: 22%;
-        }
+        .flower:nth-child(1) { top: 30px; left: 50%; transform: translateX(-50%); z-index: 15; }
+        .flower:nth-child(2) { top: 60px; left: 20%; z-index: 12; }
+        .flower:nth-child(3) { top: 60px; right: 20%; z-index: 12; }
+        .flower:nth-child(4) { top: 100px; left: 10%; z-index: 10; }
+        .flower:nth-child(5) { top: 100px; right: 10%; z-index: 10; }
+        .flower:nth-child(6) { top: 80px; left: 50%; transform: translateX(-50%); z-index: 14; }
+        .flower:nth-child(7) { top: 140px; left: 25%; z-index: 9; }
+        .flower:nth-child(8) { top: 140px; right: 25%; z-index: 9; }
+        .flower:nth-child(9) { top: 120px; left: 35%; z-index: 11; }
+        .flower:nth-child(10) { top: 120px; right: 35%; z-index: 11; }
+        .flower:nth-child(11) { top: 70px; left: 32%; z-index: 13; }
+        .flower:nth-child(12) { top: 70px; right: 32%; z-index: 13; }
+        .flower:nth-child(13) { top: 180px; left: 15%; z-index: 8; }
+        .flower:nth-child(14) { top: 180px; right: 15%; z-index: 8; }
+        .flower:nth-child(15) { top: 160px; left: 50%; transform: translateX(-50%); z-index: 10; }
+        .flower:nth-child(16) { top: 200px; left: 30%; z-index: 7; }
+        .flower:nth-child(17) { top: 200px; right: 30%; z-index: 7; }
+        .flower:nth-child(18) { top: 50px; left: 42%; z-index: 14; }
+        .flower:nth-child(19) { top: 50px; right: 42%; z-index: 14; }
+        .flower:nth-child(20) { top: 90px; left: 18%; z-index: 12; }
+        .flower:nth-child(21) { top: 90px; right: 18%; z-index: 12; }
 
         /* Rose colors - various shades of red and pink */
         .flower:nth-child(1) .flower-petal { background: linear-gradient(135deg, #ff1744, #c62828); }
@@ -609,14 +511,28 @@
 
         .flower-center {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, #8b0000, #660000);
+            width: 25px;
+            height: 25px;
+            background: radial-gradient(circle, #ffeb3b 0%, #fdd835 30%, #8b0000 70%, #660000 100%);
             border-radius: 50%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            box-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
+            box-shadow: 
+                0 0 10px rgba(139, 0, 0, 0.6),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Add small dots to flower center for realism */
+        .flower-center::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, transparent 1px, rgba(139, 0, 0, 0.2) 1px, transparent 2px);
+            background-size: 3px 3px;
+            border-radius: 50%;
         }
 
         /* Baby's breath (small white flowers) */
@@ -649,24 +565,43 @@
         /* Rose leaves */
         .rose-leaf {
             position: absolute;
-            width: 40px;
-            height: 25px;
-            background: linear-gradient(135deg, #2d5016 0%, #4a7c2c 50%, #2d5016 100%);
+            width: 50px;
+            height: 30px;
+            background: linear-gradient(135deg, #1b3d0f 0%, #2d5016 30%, #4a7c2c 60%, #2d5016 100%);
             border-radius: 0 50% 50% 50%;
             transform-origin: bottom left;
-            box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 
+                inset -3px -3px 6px rgba(0, 0, 0, 0.3),
+                inset 2px 2px 4px rgba(255, 255, 255, 0.2),
+                0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
-        .rose-leaf:nth-of-type(38) { top: 120px; left: 10%; transform: rotate(-30deg); }
-        .rose-leaf:nth-of-type(39) { top: 140px; right: 10%; transform: rotate(30deg) scaleX(-1); }
-        .rose-leaf:nth-of-type(40) { top: 180px; left: 12%; transform: rotate(-45deg); }
-        .rose-leaf:nth-of-type(41) { top: 200px; right: 12%; transform: rotate(45deg) scaleX(-1); }
-        .rose-leaf:nth-of-type(42) { top: 100px; left: 28%; transform: rotate(-20deg); }
-        .rose-leaf:nth-of-type(43) { top: 100px; right: 28%; transform: rotate(20deg) scaleX(-1); }
-        .rose-leaf:nth-of-type(44) { top: 160px; left: 25%; transform: rotate(-35deg); }
-        .rose-leaf:nth-of-type(45) { top: 160px; right: 25%; transform: rotate(35deg) scaleX(-1); }
-        .rose-leaf:nth-of-type(46) { top: 220px; left: 45%; transform: rotate(-15deg); }
-        .rose-leaf:nth-of-type(47) { top: 220px; right: 45%; transform: rotate(15deg) scaleX(-1); }
+        /* Leaf vein effect */
+        .rose-leaf::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateY(-50%) rotate(-15deg);
+        }
+
+        .rose-leaf:nth-of-type(38) { top: 100px; left: 5%; transform: rotate(-35deg); }
+        .rose-leaf:nth-of-type(39) { top: 120px; right: 5%; transform: rotate(35deg) scaleX(-1); }
+        .rose-leaf:nth-of-type(40) { top: 150px; left: 8%; transform: rotate(-50deg); }
+        .rose-leaf:nth-of-type(41) { top: 170px; right: 8%; transform: rotate(50deg) scaleX(-1); }
+        .rose-leaf:nth-of-type(42) { top: 80px; left: 24%; transform: rotate(-25deg); }
+        .rose-leaf:nth-of-type(43) { top: 80px; right: 24%; transform: rotate(25deg) scaleX(-1); }
+        .rose-leaf:nth-of-type(44) { top: 130px; left: 20%; transform: rotate(-40deg); }
+        .rose-leaf:nth-of-type(45) { top: 130px; right: 20%; transform: rotate(40deg) scaleX(-1); }
+        .rose-leaf:nth-of-type(46) { top: 190px; left: 42%; transform: rotate(-20deg); }
+        .rose-leaf:nth-of-type(47) { top: 190px; right: 42%; transform: rotate(20deg) scaleX(-1); }
+        .rose-leaf:nth-of-type(48) { top: 60px; left: 38%; transform: rotate(-30deg); }
+        .rose-leaf:nth-of-type(49) { top: 60px; right: 38%; transform: rotate(30deg) scaleX(-1); }
+        .rose-leaf:nth-of-type(50) { top: 110px; left: 48%; transform: rotate(-15deg); }
+        .rose-leaf:nth-of-type(51) { top: 110px; right: 48%; transform: rotate(15deg) scaleX(-1); }
 
         .hidden {
             display: none !important;
@@ -805,7 +740,11 @@
                     <div class="babys-breath"></div>
                     <div class="babys-breath"></div>
 
-                    <!-- Rose leaves -->
+                    <!-- Rose leaves (more for fuller look) -->
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
                     <div class="rose-leaf"></div>
                     <div class="rose-leaf"></div>
                     <div class="rose-leaf"></div>
@@ -818,7 +757,6 @@
                     <div class="rose-leaf"></div>
 
                     <!-- Wrapping -->
-                    <div class="bouquet-ribbon"></div>
                     <div class="bouquet-base"></div>
                 </div>
             </div>
