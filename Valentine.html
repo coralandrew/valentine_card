@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Valentine's Day 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #dc143c 0%, #ff6b6b 100%);
+            overflow-x: hidden;
+            transition: background 0.5s ease;
+        }
+
+        body.dark-mode {
+            background: #000;
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Valentine's Day Title */
+        .valentine-title {
+            color: white;
+            font-size: 48px;
+            margin-bottom: 30px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            font-weight: bold;
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                text-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.3);
+            }
+            50% {
+                text-shadow: 0 4px 20px rgba(0,0,0,0.3), 0 0 50px rgba(255,255,255,0.6);
+            }
+        }
+
+        /* Envelope Styles */
+        .envelope-wrapper {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            margin: 0 auto 30px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid #f0f0f0;
+            transform-origin: top center;
+            transition: transform 0.6s ease;
+            z-index: 3;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+        }
+
+        .envelope-body {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 300px;
+            height: 100px;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+            z-index: 2;
+        }
+
+        .envelope-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 100px solid #fff;
+        }
+
+        .heart-seal {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            z-index: 4;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* Button Styles */
+        .btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.4);
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 25px rgba(255, 107, 157, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Flying Hearts - Enhanced */
+        .heart {
+            position: fixed;
+            font-size: 50px; /* Bigger default size */
+            animation: float-up 3s ease-in forwards;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .heart.flood {
+            animation: flood-up 4s ease-out forwards;
+        }
+
+        @keyframes float-up {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-1000px) rotate(360deg);
+            }
+        }
+
+        @keyframes flood-up {
+            0% {
+                opacity: 0;
+                transform: translateY(0) rotate(0deg) scale(0.5);
+            }
+            10% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-1200px) rotate(720deg) scale(1.2);
+            }
+        }
+
+        /* Fireworks Hearts */
+        .firework-heart {
+            position: fixed;
+            font-size: 30px;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        @keyframes firework-burst {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0.3);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(1.2) rotate(360deg);
+            }
+        }
+
+        .firework-heart.burst {
+            animation: firework-burst 1.5s ease-out forwards;
+        }
+
+        /* Falling Rose Petals */
+        .petal {
+            position: fixed;
+            top: -50px;
+            font-size: 24px;
+            animation: fall 10s linear forwards;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Message Container */
+        .message-container {
+            display: none;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 50px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+            position: relative;
+            text-align: left;
+        }
+
+        .message-container.show {
+            display: block;
+            animation: fadeIn 1s ease;
+            box-shadow:
+                0 0 25px rgba(255,105,180,.6),
+                0 0 50px rgba(255,20,147,.4),
+                0 15px 50px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-container::before {
+            content: '❤️';
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 35px;
+        }
+
+        .message-container::after {
+            content: '❤️';
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            font-size: 35px;
+        }
+
+        .message-container h2 {
+            color: #ff6b9d;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .message-container p {
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .typewriter-text {
+            line-height: 1.8;
+            color: #333;
+            font-size: 16px;
+            white-space: pre-wrap;
+            margin-bottom: 15px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: #ff6b9d;
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .flower-btn {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        /* Bouquet Page */
+        .bouquet-page {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .bouquet-page.show {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 1s ease;
+        }
+
+        /* Glowing Bouquet */
+        .bouquet-container {
+            position: relative;
+            width: 600px;
+            height: 650px;
+            margin-bottom: 50px;
+            animation: riseUp 2s ease;
+        }
+
+        @keyframes riseUp {
+            0% {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bouquet-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 30px rgba(255, 182, 193, 0.8))
+                    drop-shadow(0 0 60px rgba(255, 105, 180, 0.6))
+                    drop-shadow(0 0 90px rgba(255, 20, 147, 0.4));
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 30px rgba(255, 182, 193, 0.8))
+                        drop-shadow(0 0 60px rgba(255, 105, 180, 0.6))
+                        drop-shadow(0 0 90px rgba(255, 20, 147, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px rgba(255, 182, 193, 1))
+                        drop-shadow(0 0 80px rgba(255, 105, 180, 0.8))
+                        drop-shadow(0 0 120px rgba(255, 20, 147, 0.6));
+            }
+        }
+
+        /* Bouquet Base/Wrapping */
+        .bouquet-base {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            height: 220px;
+            background: linear-gradient(135deg, #e8a5c0 0%, #f5c9d8 50%, #e8a5c0 100%);
+            clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+            border-radius: 0 0 15px 15px;
+        }
+
+        .bouquet-ribbon {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 35px;
+            background: linear-gradient(135deg, #d8a5e8 0%, #c9b5f5 100%);
+            border-radius: 5px;
+        }
+
+        .bouquet-ribbon::before,
+        .bouquet-ribbon::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            width: 25px;
+            height: 50px;
+            background: linear-gradient(135deg, #d8a5e8 0%, #c9b5f5 100%);
+        }
+
+        .bouquet-ribbon::before {
+            left: 25px;
+            transform: skewX(-15deg);
+        }
+
+        .bouquet-ribbon::after {
+            right: 25px;
+            transform: skewX(15deg);
+        }
+
+        /* Flowers in Bouquet - ROSES */
+        .flower {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+        }
+
+        .flower-bloom {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: bloom 2s ease forwards;
+        }
+
+        @keyframes bloom {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1) rotate(180deg);
+                opacity: 1;
+            }
+        }
+
+        /* Rose petals - layered for depth */
+        .flower-petal {
+            position: absolute;
+            width: 45px;
+            height: 60px;
+            border-radius: 50% 50% 50% 0;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom left;
+            box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Inner rose petals (smaller, darker) */
+        .flower-petal.inner {
+            width: 30px;
+            height: 40px;
+            opacity: 0.9;
+            filter: brightness(0.85);
+        }
+
+        /* Position roses in bigger bouquet arrangement */
+        .flower:nth-child(1) {
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .flower:nth-child(2) {
+            top: 80px;
+            left: 25%;
+        }
+
+        .flower:nth-child(3) {
+            top: 80px;
+            right: 25%;
+        }
+
+        .flower:nth-child(4) {
+            top: 130px;
+            left: 15%;
+        }
+
+        .flower:nth-child(5) {
+            top: 130px;
+            right: 15%;
+        }
+
+        .flower:nth-child(6) {
+            top: 110px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .flower:nth-child(7) {
+            top: 180px;
+            left: 30%;
+        }
+
+        .flower:nth-child(8) {
+            top: 180px;
+            right: 30%;
+        }
+
+        .flower:nth-child(9) {
+            top: 150px;
+            left: 40%;
+        }
+
+        .flower:nth-child(10) {
+            top: 150px;
+            right: 40%;
+        }
+
+        .flower:nth-child(11) {
+            top: 100px;
+            left: 35%;
+        }
+
+        .flower:nth-child(12) {
+            top: 100px;
+            right: 35%;
+        }
+
+        .flower:nth-child(13) {
+            top: 220px;
+            left: 20%;
+        }
+
+        .flower:nth-child(14) {
+            top: 220px;
+            right: 20%;
+        }
+
+        .flower:nth-child(15) {
+            top: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .flower:nth-child(16) {
+            top: 240px;
+            left: 35%;
+        }
+
+        .flower:nth-child(17) {
+            top: 240px;
+            right: 35%;
+        }
+
+        .flower:nth-child(18) {
+            top: 70px;
+            left: 45%;
+        }
+
+        .flower:nth-child(19) {
+            top: 70px;
+            right: 45%;
+        }
+
+        .flower:nth-child(20) {
+            top: 120px;
+            left: 22%;
+        }
+
+        .flower:nth-child(21) {
+            top: 120px;
+            right: 22%;
+        }
+
+        /* Rose colors - various shades of red and pink */
+        .flower:nth-child(1) .flower-petal { background: linear-gradient(135deg, #ff1744, #c62828); }
+        .flower:nth-child(2) .flower-petal { background: linear-gradient(135deg, #ff5252, #e53935); }
+        .flower:nth-child(3) .flower-petal { background: linear-gradient(135deg, #ff6b9d, #f06292); }
+        .flower:nth-child(4) .flower-petal { background: linear-gradient(135deg, #ec407a, #d81b60); }
+        .flower:nth-child(5) .flower-petal { background: linear-gradient(135deg, #ff4081, #f50057); }
+        .flower:nth-child(6) .flower-petal { background: linear-gradient(135deg, #ff1744, #d50000); }
+        .flower:nth-child(7) .flower-petal { background: linear-gradient(135deg, #ff80ab, #ff5983); }
+        .flower:nth-child(8) .flower-petal { background: linear-gradient(135deg, #f48fb1, #ec407a); }
+        .flower:nth-child(9) .flower-petal { background: linear-gradient(135deg, #ff5252, #ff1744); }
+        .flower:nth-child(10) .flower-petal { background: linear-gradient(135deg, #ff6b9d, #ff4081); }
+        .flower:nth-child(11) .flower-petal { background: linear-gradient(135deg, #e91e63, #c2185b); }
+        .flower:nth-child(12) .flower-petal { background: linear-gradient(135deg, #ff4081, #f50057); }
+        .flower:nth-child(13) .flower-petal { background: linear-gradient(135deg, #f06292, #ec407a); }
+        .flower:nth-child(14) .flower-petal { background: linear-gradient(135deg, #ff1744, #d50000); }
+        .flower:nth-child(15) .flower-petal { background: linear-gradient(135deg, #ff5983, #ff4081); }
+        .flower:nth-child(16) .flower-petal { background: linear-gradient(135deg, #c62828, #b71c1c); }
+        .flower:nth-child(17) .flower-petal { background: linear-gradient(135deg, #ff80ab, #f48fb1); }
+        .flower:nth-child(18) .flower-petal { background: linear-gradient(135deg, #d81b60, #c2185b); }
+        .flower:nth-child(19) .flower-petal { background: linear-gradient(135deg, #ff6b9d, #ec407a); }
+        .flower:nth-child(20) .flower-petal { background: linear-gradient(135deg, #e53935, #d32f2f); }
+        .flower:nth-child(21) .flower-petal { background: linear-gradient(135deg, #ff4081, #ff1744); }
+
+        .flower-center {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #8b0000, #660000);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
+        }
+
+        /* Baby's breath (small white flowers) */
+        .babys-breath {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #fff, #f0f0f0);
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .babys-breath:nth-of-type(22) { top: 100px; left: 45%; }
+        .babys-breath:nth-of-type(23) { top: 120px; left: 55%; }
+        .babys-breath:nth-of-type(24) { top: 140px; left: 18%; }
+        .babys-breath:nth-of-type(25) { top: 150px; right: 18%; }
+        .babys-breath:nth-of-type(26) { top: 90px; left: 40%; }
+        .babys-breath:nth-of-type(27) { top: 95px; right: 40%; }
+        .babys-breath:nth-of-type(28) { top: 170px; left: 50%; }
+        .babys-breath:nth-of-type(29) { top: 190px; left: 25%; }
+        .babys-breath:nth-of-type(30) { top: 190px; right: 25%; }
+        .babys-breath:nth-of-type(31) { top: 210px; left: 42%; }
+        .babys-breath:nth-of-type(32) { top: 210px; right: 42%; }
+        .babys-breath:nth-of-type(33) { top: 230px; left: 28%; }
+        .babys-breath:nth-of-type(34) { top: 230px; right: 28%; }
+        .babys-breath:nth-of-type(35) { top: 110px; left: 48%; }
+        .babys-breath:nth-of-type(36) { top: 160px; left: 33%; }
+        .babys-breath:nth-of-type(37) { top: 160px; right: 33%; }
+
+        /* Rose leaves */
+        .rose-leaf {
+            position: absolute;
+            width: 40px;
+            height: 25px;
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c2c 50%, #2d5016 100%);
+            border-radius: 0 50% 50% 50%;
+            transform-origin: bottom left;
+            box-shadow: inset -2px -2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .rose-leaf:nth-of-type(38) { top: 120px; left: 10%; transform: rotate(-30deg); }
+        .rose-leaf:nth-of-type(39) { top: 140px; right: 10%; transform: rotate(30deg) scaleX(-1); }
+        .rose-leaf:nth-of-type(40) { top: 180px; left: 12%; transform: rotate(-45deg); }
+        .rose-leaf:nth-of-type(41) { top: 200px; right: 12%; transform: rotate(45deg) scaleX(-1); }
+        .rose-leaf:nth-of-type(42) { top: 100px; left: 28%; transform: rotate(-20deg); }
+        .rose-leaf:nth-of-type(43) { top: 100px; right: 28%; transform: rotate(20deg) scaleX(-1); }
+        .rose-leaf:nth-of-type(44) { top: 160px; left: 25%; transform: rotate(-35deg); }
+        .rose-leaf:nth-of-type(45) { top: 160px; right: 25%; transform: rotate(35deg) scaleX(-1); }
+        .rose-leaf:nth-of-type(46) { top: 220px; left: 45%; transform: rotate(-15deg); }
+        .rose-leaf:nth-of-type(47) { top: 220px; right: 45%; transform: rotate(15deg) scaleX(-1); }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Background Hearts Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .valentine-title {
+                font-size: 32px;
+                margin-bottom: 20px;
+            }
+
+            .message-container {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .message-container h2 {
+                font-size: 22px;
+            }
+
+            .message-container p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Music -->
+    <audio id="bgMusic" loop>
+        <source src="C:\Users\andrew\OneDrive\Documents\XAMPPP\htdocs\Valentine\love.mp3.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <!-- Envelope Section -->
+        <div id="envelopeSection">
+            <h1 class="valentine-title">Happy Valentine's Day 💕</h1>
+            <div class="envelope-wrapper" id="envelopeWrapper">
+                <div class="envelope" id="envelope">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body"></div>
+                    <div class="heart-seal">❤️</div>
+                </div>
+            </div>
+            <button class="btn" id="readBtn">Read the Message</button>
+        </div>
+
+        <!-- Message Section -->
+        <div class="message-container" id="messageContainer">
+            <h2>Dear baby,</h2>
+            <div class="typewriter-text" id="typewriterText"></div>
+
+            <div class="flower-btn">
+                <button class="btn" id="flowerBtn">Here's Your Flower 🌸</button>
+            </div>
+        </div>
+
+        <!-- Bouquet Page -->
+        <div class="bouquet-page" id="bouquetPage">
+            <div class="bouquet-container">
+                <div class="bouquet-wrapper">
+                    <!-- Roses (21 total for big bouquet) -->
+                    <div class="flower"><div class="flower-bloom"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.05s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.1s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.15s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.2s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.25s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.3s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.35s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.4s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.45s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.5s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.55s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.6s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.65s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.7s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.75s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.8s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.85s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.9s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 0.95s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+                    
+                    <div class="flower"><div class="flower-bloom" style="animation-delay: 1s;"><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(0deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(40deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(80deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(120deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(160deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(200deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(240deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(280deg);"></div><div class="flower-petal" style="transform: translate(-50%, -50%) rotate(320deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(20deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(100deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(180deg);"></div><div class="flower-petal inner" style="transform: translate(-50%, -50%) rotate(260deg);"></div><div class="flower-center"></div></div></div>
+
+                    <!-- Baby's breath (more for bigger bouquet) -->
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+                    <div class="babys-breath"></div>
+
+                    <!-- Rose leaves -->
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+                    <div class="rose-leaf"></div>
+
+                    <!-- Wrapping -->
+                    <div class="bouquet-ribbon"></div>
+                    <div class="bouquet-base"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const envelopeWrapper = document.getElementById('envelopeWrapper');
+        const envelopeSection = document.getElementById('envelopeSection');
+        const readBtn = document.getElementById('readBtn');
+        const messageContainer = document.getElementById('messageContainer');
+        const flowerBtn = document.getElementById('flowerBtn');
+        const bouquetPage = document.getElementById('bouquetPage');
+        const typewriterText = document.getElementById('typewriterText');
+        const bgMusic = document.getElementById('bgMusic');
+
+        let envelopeOpened = false;
+
+        // Falling rose petals - continuous romantic effect
+        setInterval(() => {
+            const p = document.createElement("div");
+            p.className = "petal";
+            p.innerHTML = "🌹";
+            p.style.left = Math.random() * 100 + "vw";
+            p.style.animationDuration = 6 + Math.random() * 5 + "s";
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 11000);
+        }, 900);
+
+        // The full message to be typed
+        const fullMessage = `Hello, baby ko, this is our first Valentine's Day together as a couple; unfortunately, we're far from each other. But my heart won't let me beat normally if I do not do anything to at least make this Valentine memorable to us and also to mark this as our first month of love together. So bear with me if this is the only way I can afford it, but whatever it may be, my thoughts of loving you are always present and will be there.
+
+My heart is bursting with happiness and love, overflowing throughout my veins and eventually overtaking my body because of the love and support you always allocate and invest in me. I will always forever be grateful for having you in my life because you're my angel in disguise. I promise that I will always love you the way time operates, and that is loving you endlessly and untiringly. We have all the time in the world, so someday, we'll be together again. I love you so much, baby ko.🥺`;
+
+        // Enhanced heart flooding function - BIG RED HEARTS!
+        function floodScreenWithHearts() {
+            const heartEmojis = ['❤️', '❤️', '❤️', '❤️', '❤️']; // All red hearts!
+            const numberOfHearts = 300; // Even more hearts!
+            
+            for (let i = 0; i < numberOfHearts; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart flood';
+                    heart.innerHTML = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                    
+                    // Random position across entire screen width
+                    heart.style.left = Math.random() * window.innerWidth + 'px';
+                    
+                    // Start from bottom of screen
+                    heart.style.top = window.innerHeight + 'px';
+                    
+                    // BIG random size variation (40-100px)
+                    const size = 40 + Math.random() * 60;
+                    heart.style.fontSize = size + 'px';
+                    
+                    // Random animation duration for variety
+                    heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+                    
+                    document.body.appendChild(heart);
+                    
+                    // Remove after animation completes
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 5000);
+                }, i * 12); // Faster stagger for more flooding
+            }
+        }
+
+        // Function to create hearts from envelope center - BIG RED HEARTS!
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️'; // Red heart only
+            
+            const rect = envelopeWrapper.getBoundingClientRect();
+            heart.style.left = (rect.left + rect.width / 2) + 'px';
+            heart.style.top = (rect.top + rect.height / 2) + 'px';
+            
+            // Big size (40-80px)
+            const size = 40 + Math.random() * 40;
+            heart.style.fontSize = size + 'px';
+            
+            const xOffset = (Math.random() - 0.5) * 200;
+            heart.style.setProperty('--x-offset', xOffset + 'px');
+            
+            document.body.appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+
+        // Function to create multiple hearts from envelope
+        function createMultipleHearts(count = 20) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    createHeart();
+                }, i * 50);
+            }
+        }
+
+        // Typewriter effect
+        function typeWriter(text, element, speed = 30) {
+            let i = 0;
+            const cursor = document.createElement('span');
+            cursor.className = 'cursor';
+            
+            function type() {
+                if (i < text.length) {
+                    // Remove cursor temporarily
+                    if (element.contains(cursor)) {
+                        element.removeChild(cursor);
+                    }
+                    
+                    element.textContent += text.charAt(i);
+                    
+                    // Add cursor back
+                    element.appendChild(cursor);
+                    
+                    i++;
+                    setTimeout(type, speed);
+                } else {
+                    // Keep cursor blinking at the end for a bit, then remove
+                    setTimeout(() => {
+                        if (element.contains(cursor)) {
+                            element.removeChild(cursor);
+                        }
+                    }, 2000);
+                }
+            }
+            
+            type();
+        }
+
+        // Fireworks hearts finale function
+        function createFireworksFinale() {
+            const numberOfBursts = 12; // Number of firework bursts
+            const heartsPerBurst = 16; // Hearts per burst
+            
+            for (let burst = 0; burst < numberOfBursts; burst++) {
+                setTimeout(() => {
+                    // Random position for this burst
+                    const burstX = Math.random() * window.innerWidth;
+                    const burstY = Math.random() * (window.innerHeight * 0.7); // Top 70% of screen
+                    
+                    // Create hearts in a circular burst pattern
+                    for (let i = 0; i < heartsPerBurst; i++) {
+                        const heart = document.createElement('div');
+                        heart.className = 'firework-heart burst';
+                        heart.innerHTML = '❤️';
+                        
+                        // Position at burst origin
+                        heart.style.left = burstX + 'px';
+                        heart.style.top = burstY + 'px';
+                        
+                        // Calculate burst direction (360 degrees / number of hearts)
+                        const angle = (i / heartsPerBurst) * Math.PI * 2;
+                        const distance = 150 + Math.random() * 100; // Random distance
+                        
+                        const tx = Math.cos(angle) * distance;
+                        const ty = Math.sin(angle) * distance;
+                        
+                        heart.style.setProperty('--tx', tx + 'px');
+                        heart.style.setProperty('--ty', ty + 'px');
+                        
+                        document.body.appendChild(heart);
+                        
+                        // Remove after animation
+                        setTimeout(() => {
+                            heart.remove();
+                        }, 1500);
+                    }
+                }, burst * 300); // Stagger each burst
+            }
+        }
+
+        // Envelope click handler - FLOOD THE SCREEN AND OPEN MESSAGE!
+        envelopeWrapper.addEventListener('click', () => {
+            if (!envelopeOpened) {
+                envelope.classList.add('open');
+                
+                // Play background music
+                bgMusic.play().catch(e => console.log("Music autoplay blocked:", e));
+                
+                // MASSIVE HEART FLOOD!
+                floodScreenWithHearts();
+                
+                // Also create hearts from envelope center for extra effect
+                createMultipleHearts(50);
+                
+                envelopeOpened = true;
+                
+                // Open message after envelope animation
+                setTimeout(() => {
+                    envelopeSection.classList.add('hidden');
+                    messageContainer.classList.add('show');
+                    createMultipleHearts(60);
+                    
+                    // Start typewriter effect
+                    setTimeout(() => {
+                        typeWriter(fullMessage, typewriterText, 30);
+                    }, 500);
+                }, 1000);
+            }
+        });
+
+        // Read button click handler
+        readBtn.addEventListener('click', () => {
+            if (envelopeOpened) {
+                envelopeSection.classList.add('hidden');
+                messageContainer.classList.add('show');
+                createMultipleHearts(60);
+                
+                // Start typewriter effect after message appears
+                setTimeout(() => {
+                    typeWriter(fullMessage, typewriterText, 30);
+                }, 500);
+            } else {
+                // Prompt to open envelope first
+                envelope.classList.add('open');
+                
+                // Play background music
+                bgMusic.play().catch(e => console.log("Music autoplay blocked:", e));
+                
+                // MASSIVE HEART FLOOD!
+                floodScreenWithHearts();
+                createMultipleHearts(50);
+                
+                envelopeOpened = true;
+                
+                setTimeout(() => {
+                    envelopeSection.classList.add('hidden');
+                    messageContainer.classList.add('show');
+                    
+                    // Start typewriter effect
+                    setTimeout(() => {
+                        typeWriter(fullMessage, typewriterText, 30);
+                    }, 500);
+                }, 1000);
+            }
+        });
+
+        // Flower button click handler
+        flowerBtn.addEventListener('click', () => {
+            // Hide message container
+            messageContainer.classList.remove('show');
+            messageContainer.style.display = 'none';
+            
+            // Change background to black
+            document.body.classList.add('dark-mode');
+            
+            // Show bouquet page
+            bouquetPage.classList.add('show');
+            
+            createMultipleHearts(60);
+            
+            // Start fireworks finale after a short delay
+            setTimeout(() => {
+                createFireworksFinale();
+            }, 1000);
+        });
+
+        // Add continuous floating hearts in background - BIG RED HEARTS!
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                const bgHeart = document.createElement('div');
+                bgHeart.className = 'heart';
+                bgHeart.innerHTML = '❤️'; // Red heart only
+                bgHeart.style.left = Math.random() * window.innerWidth + 'px';
+                bgHeart.style.top = window.innerHeight + 'px';
+                bgHeart.style.fontSize = (Math.random() * 40 + 35) + 'px'; // 35-75px
+                bgHeart.style.opacity = '0.3';
+                document.body.appendChild(bgHeart);
+                
+                setTimeout(() => {
+                    bgHeart.remove();
+                }, 3000);
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
